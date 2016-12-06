@@ -1,0 +1,14 @@
+// _default-container.scss
+// for general layouts using bootstrap's container
+
+.main {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-content {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}

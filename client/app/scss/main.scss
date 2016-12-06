@@ -1,0 +1,15 @@
+// main.scss
+
+@import 'modules/default-container';
+// @import 'modules/table-row';
+// @import 'modules/notepad';
+
+$nice-margin: 2rem;
+
+.title {
+  margin: $nice-margin 0 $nice-margin 0;
+}
+
+footer {
+  margin: $nice-margin/2 0 $nice-margin/2 0;
+}
