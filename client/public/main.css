@@ -6,7 +6,21 @@
 .site-content {
   flex: 1;
   display: flex;
-  justify-content: space-between; }
+  justify-content: center;
+  align-items: center; }
+
+.board {
+  display: flex;
+  flex-direction: column; }
+
+.board-row {
+  display: flex;
+  flex-direction: row; }
+
+.board-square {
+  height: 3rem;
+  width: 3rem;
+  border: 1px solid #000; }
 
 .title {
   margin: 2rem 0 2rem 0; }

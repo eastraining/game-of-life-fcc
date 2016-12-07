@@ -23878,14 +23878,17 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var finalCreateStore = (0, _redux.compose)((0, _redux.applyMiddleware)((0, _reduxLogger2.default)()))(_redux.createStore); // store.js
+	var defaultBoard = {
+	  height: 9,
+	  width: 9
+	}; // store.js
 	// Creates a Redux store from a given initialState
 	// Or creates a store from a default initialState if none supplied
 	
+	var finalCreateStore = (0, _redux.compose)((0, _redux.applyMiddleware)((0, _reduxLogger2.default)()))(_redux.createStore);
+	
 	var configureStore = function configureStore() {
-	  var initialState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-	    // TODO: Fill in the default state
-	  };
+	  var initialState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultBoard;
 	
 	  return finalCreateStore(_reducer2.default, initialState);
 	};
@@ -24812,6 +24815,10 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 32);
 	
+	var _CurrentBoard = __webpack_require__(/*! ../containers/CurrentBoard */ 217);
+	
+	var _CurrentBoard2 = _interopRequireDefault(_CurrentBoard);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// stylistic components
@@ -24823,7 +24830,7 @@
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'site-content' },
-	      'Coming Soon.'
+	      _react2.default.createElement(_CurrentBoard2.default, null)
 	    ),
 	    _react2.default.createElement(Footer, null)
 	  );
@@ -24844,6 +24851,130 @@
 	};
 	
 	exports.default = App;
+
+/***/ },
+/* 217 */
+/*!***********************************************!*\
+  !*** ./client/app/containers/CurrentBoard.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 32);
+	
+	var _Board = __webpack_require__(/*! ../displays/Board */ 218);
+	
+	var _Board2 = _interopRequireDefault(_Board);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 178);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CurrentBoard = function (_Component) {
+	  _inherits(CurrentBoard, _Component);
+	
+	  function CurrentBoard() {
+	    _classCallCheck(this, CurrentBoard);
+	
+	    return _possibleConstructorReturn(this, (CurrentBoard.__proto__ || Object.getPrototypeOf(CurrentBoard)).apply(this, arguments));
+	  }
+	
+	  _createClass(CurrentBoard, [{
+	    key: 'render',
+	    value: function render() {
+	      var height = this.props.height;
+	      var width = this.props.width;
+	      console.log(height, width);
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_Board2.default, { height: height, width: width })
+	      );
+	    }
+	  }]);
+	
+	  return CurrentBoard;
+	}(_react.Component);
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return state;
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(CurrentBoard);
+
+/***/ },
+/* 218 */
+/*!**************************************!*\
+  !*** ./client/app/displays/Board.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 32);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Board = function Board(_ref) {
+	  var height = _ref.height,
+	      width = _ref.width;
+	
+	  var rows = [];
+	  for (var i = 0; i < height; i++) {
+	    rows.push(_react2.default.createElement(Row, { key: i, width: width, index: i }));
+	  }
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'board' },
+	    rows
+	  );
+	};
+	
+	var Row = function Row(_ref2) {
+	  var width = _ref2.width,
+	      index = _ref2.index;
+	
+	  var squares = [];
+	  for (var j = 0; j < width; j++) {
+	    squares.push(_react2.default.createElement(Square, { key: [index, j] }));
+	  }
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'board-row' },
+	    squares
+	  );
+	};
+	
+	var Square = function Square() {
+	  return _react2.default.createElement('div', { className: 'board-square' });
+	};
+	
+	exports.default = Board;
 
 /***/ }
 /******/ ]);

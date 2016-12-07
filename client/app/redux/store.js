@@ -6,13 +6,16 @@ import {applyMiddleware, compose, createStore} from 'redux';
 import reducer from './reducer';
 import logger from 'redux-logger';
 
+const defaultBoard = {
+  height: 9,
+  width: 9
+}
+
 let finalCreateStore = compose(
   applyMiddleware(logger())
 )(createStore);
 
-let configureStore = (initialState = {
-  // TODO: Fill in the default state
-}) => {
+let configureStore = (initialState = defaultBoard) => {
   return finalCreateStore(reducer, initialState);
 }
 

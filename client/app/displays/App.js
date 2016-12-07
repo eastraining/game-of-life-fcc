@@ -1,12 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
+import CurrentBoard from '../containers/CurrentBoard'
 
 // stylistic components
 const App = () => (
   <div className="main container">
     <Title />
     <div className="site-content">
-      Coming Soon.
+      <CurrentBoard />
     </div>
     <Footer />
   </div>

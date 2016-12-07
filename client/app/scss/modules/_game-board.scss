@@ -1,0 +1,21 @@
+// _game-board.scss
+// styles a dynamically sized game-board
+
+$border: 1px solid #000;
+$square-side: 3rem;
+
+.board {
+  display: flex;
+  flex-direction: column;
+}
+
+.board-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.board-square {
+  height: $square-side;
+  width: $square-side;
+  border: $border;
+}
