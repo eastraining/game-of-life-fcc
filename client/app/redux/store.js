@@ -7,8 +7,9 @@ import reducer from './reducer';
 import logger from 'redux-logger';
 
 const defaultBoard = {
-  height: 9,
-  width: 9
+  height: 3,
+  width: 3,
+  board: [[0, 0, 0], [1, 1, 1], [0, 0, 0]]
 }
 
 let finalCreateStore = compose(

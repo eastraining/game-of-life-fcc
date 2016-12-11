@@ -7,10 +7,10 @@ class CurrentBoard extends Component {
   render() {
   	const height = this.props.height
   	const width = this.props.width
-  	console.log(height, width)
+    const board = this.props.board
     return (
       <div>
-        <Board height={height} width={width} />
+        <Board board={board} />
       </div>
     )
   }

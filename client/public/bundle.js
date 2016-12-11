@@ -23879,8 +23879,9 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var defaultBoard = {
-	  height: 9,
-	  width: 9
+	  height: 3,
+	  width: 3,
+	  board: [[0, 0, 0], [1, 1, 1], [0, 0, 0]]
 	}; // store.js
 	// Creates a Redux store from a given initialState
 	// Or creates a store from a default initialState if none supplied
@@ -24901,11 +24902,11 @@
 	    value: function render() {
 	      var height = this.props.height;
 	      var width = this.props.width;
-	      console.log(height, width);
+	      var board = this.props.board;
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Board2.default, { height: height, width: width })
+	        _react2.default.createElement(_Board2.default, { board: board })
 	      );
 	    }
 	  }]);
@@ -24941,37 +24942,37 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Board = function Board(_ref) {
-	  var height = _ref.height,
-	      width = _ref.width;
-	
-	  var rows = [];
-	  for (var i = 0; i < height; i++) {
-	    rows.push(_react2.default.createElement(Row, { key: i, width: width, index: i }));
-	  }
+	  var board = _ref.board;
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'board' },
-	    rows
+	    board.map(function (data, index) {
+	      return _react2.default.createElement(Row, { data: data, key: index, grid: index });
+	    })
 	  );
 	};
 	
 	var Row = function Row(_ref2) {
-	  var width = _ref2.width,
-	      index = _ref2.index;
-	
-	  var squares = [];
-	  for (var j = 0; j < width; j++) {
-	    squares.push(_react2.default.createElement(Square, { key: [index, j] }));
-	  }
+	  var data = _ref2.data,
+	      grid = _ref2.grid;
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'board-row' },
-	    squares
+	    data.map(function (single, index) {
+	      return _react2.default.createElement(Square, { single: single, key: (grid, index) });
+	    })
 	  );
 	};
 	
-	var Square = function Square() {
-	  return _react2.default.createElement('div', { className: 'board-square' });
+	var Square = function Square(_ref3) {
+	  var single = _ref3.single;
+	
+	  switch (single) {
+	    case 1:
+	      return _react2.default.createElement('div', { className: 'board-square__alive' });
+	    default:
+	      return _react2.default.createElement('div', { className: 'board-square__dead' });
+	  }
 	};
 	
 	exports.default = Board;

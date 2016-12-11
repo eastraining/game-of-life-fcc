@@ -17,10 +17,13 @@
   display: flex;
   flex-direction: row; }
 
-.board-square {
+.board-square__dead, .board-square__alive {
   height: 3rem;
   width: 3rem;
   border: 1px solid #000; }
+
+.board-square__alive {
+  background: #d3d3d3; }
 
 .title {
   margin: 2rem 0 2rem 0; }

@@ -3,6 +3,7 @@
 
 $border: 1px solid #000;
 $square-side: 3rem;
+$alive-background: #d3d3d3;
 
 .board {
   display: flex;
@@ -14,8 +15,12 @@ $square-side: 3rem;
   flex-direction: row;
 }
 
-.board-square {
+.board-square__dead, .board-square__alive {
   height: $square-side;
   width: $square-side;
   border: $border;
+}
+
+.board-square__alive {
+  background: $alive-background
 }
