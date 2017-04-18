@@ -61,13 +61,16 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _App = __webpack_require__(/*! ./displays/App */ 216);
+	var _actions = __webpack_require__(/*! ./redux/actions */ 216);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	var _App = __webpack_require__(/*! ./displays/App */ 217);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// configure and create store
 	var store = (0, _store2.default)();
 	
 	// render App
@@ -23876,15 +23879,18 @@
 	
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 	
+	var _actions = __webpack_require__(/*! ./actions */ 216);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var defaultBoard = {
-	  height: 3,
-	  width: 3,
-	  board: [[0, 0, 0], [1, 1, 1], [0, 0, 0]]
-	}; // store.js
+	// generate random board using reducer action - clumsy
+	// store.js
 	// Creates a Redux store from a given initialState
 	// Or creates a store from a default initialState if none supplied
+	
+	var defaultBoard = (0, _reducer2.default)({}, _actions2.default.genBoard(6, 9));
 	
 	var finalCreateStore = (0, _redux.compose)((0, _redux.applyMiddleware)((0, _reduxLogger2.default)()))(_redux.createStore);
 	
@@ -23903,7 +23909,7 @@
   \*************************************/
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -23913,6 +23919,19 @@
 	
 	var reducer = function reducer(state, action) {
 	  switch (action.type) {
+	    case 'GENERATE_BOARD':
+	      var height = action.height;
+	      var width = action.width;
+	      var newBoard = [];
+	      for (var i = 0; i < height; i++) {
+	        var tempRow = [];
+	        for (var j = 0; j < width; j++) {
+	          var temp = Math.round(Math.random());
+	          tempRow.push(temp);
+	        }
+	        newBoard.push(tempRow);
+	      }
+	      return Object.assign({}, { height: height, width: width, board: newBoard });
 	    default:
 	      return state;
 	  }
@@ -24799,6 +24818,39 @@
 
 /***/ },
 /* 216 */
+/*!*************************************!*\
+  !*** ./client/app/redux/actions.js ***!
+  \*************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// actions.js
+	// Contains Redux action creators
+	
+	var actions = {
+	  // TODO: Add some actions...
+	  // action: (state) => {
+	  //   type: 'ACTION',
+	  //   state
+	  // },
+	  genBoard: function genBoard(height, width) {
+	    return {
+	      type: 'GENERATE_BOARD',
+	      height: height,
+	      width: width
+	    };
+	  },
+	  nextBoard: function nextBoard() {}
+	};
+	
+	exports.default = actions;
+
+/***/ },
+/* 217 */
 /*!************************************!*\
   !*** ./client/app/displays/App.js ***!
   \************************************/
@@ -24816,7 +24868,7 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 32);
 	
-	var _CurrentBoard = __webpack_require__(/*! ../containers/CurrentBoard */ 217);
+	var _CurrentBoard = __webpack_require__(/*! ../containers/CurrentBoard */ 218);
 	
 	var _CurrentBoard2 = _interopRequireDefault(_CurrentBoard);
 	
@@ -24854,7 +24906,7 @@
 	exports.default = App;
 
 /***/ },
-/* 217 */
+/* 218 */
 /*!***********************************************!*\
   !*** ./client/app/containers/CurrentBoard.js ***!
   \***********************************************/
@@ -24874,7 +24926,7 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 32);
 	
-	var _Board = __webpack_require__(/*! ../displays/Board */ 218);
+	var _Board = __webpack_require__(/*! ../displays/Board */ 219);
 	
 	var _Board2 = _interopRequireDefault(_Board);
 	
@@ -24921,7 +24973,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(CurrentBoard);
 
 /***/ },
-/* 218 */
+/* 219 */
 /*!**************************************!*\
   !*** ./client/app/displays/Board.js ***!
   \**************************************/

@@ -5,12 +5,10 @@
 import {applyMiddleware, compose, createStore} from 'redux';
 import reducer from './reducer';
 import logger from 'redux-logger';
+import actions from './actions'
 
-const defaultBoard = {
-  height: 3,
-  width: 3,
-  board: [[0, 0, 0], [1, 1, 1], [0, 0, 0]]
-}
+// generate random board using reducer action - clumsy
+let defaultBoard = reducer({}, actions.genBoard(6, 9));
 
 let finalCreateStore = compose(
   applyMiddleware(logger())
